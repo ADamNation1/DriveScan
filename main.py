@@ -21,11 +21,16 @@ if proceed.lower() == "n":
     sys.exit()
 print("processing...")
 
+
+
 for i in dirList:
-    for root, dirs, files in os.walk(i, topdown=True):
-        for name in files:
-            print(os.path.join(root, name))
-        for name in dirs:
-            print(os.path.join(root, name))
+    with open(str(i) + ".txt", "w") as f:
+        for root, dirs, files in os.walk(i, topdown=True):
+            for name in files:
+                print(os.path.join(root, name))
+                f.write(os.path.join(root, name))
+            for name in dirs:
+                print(os.path.join(root, name))
+                f.write((os.path.join(root, name))
 
 
