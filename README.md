@@ -1,2 +1,3 @@
-# DriveScan
-Scans connected Disk Drives, Monitors SMART stats and backs up on pre-fail
+# FS_Scan
+Scans user provided Directories.
+Lists all directories, sub-directorys and files to .txt.
