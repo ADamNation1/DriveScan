@@ -5,8 +5,10 @@ import sys
 import logging
 import os
 
+
 def list_dir(directory):
     logging.debug("Listing directory " + directory)
+
 
 def main():
     parser = argparse.ArgumentParser(description='py directory scanner')
@@ -17,27 +19,23 @@ def main():
     args = parser.parse_args()
     output_location = args.output
 
-    if not output_location.endswith('\\'):
-        output_location += "\\"
-
-    print(output_location)
-
-    if(args.verbose):
+    if args.verbose:
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
         logging.info("Verbose output enabled")
 
-    for directory in args.directories:
-        logging.info("Creating Output file: " + output_location + "directory1.txt")
-        with open(output_location + "woof.txt", "w") as f:
-            for root, dirs, files in os.walk(directory, topdown=True):
-                for name in dirs:
-                    print(os.path.join(root, name))
-                    f.write(os.path.join(root, name) + "\n")
-                for name in files:
-                    print(os.path.join(root, name))
-                    f.write("\t" + (os.path.join(root, name)) + "\n")
+    if not output_location.endswith('\\'):
+        output_location += "\\"
 
-
-
+    for i, directory in enumerate(args.directories):
+        logging.info("Creating Output file: " + output_location + "Directory" + str(i) + ".txt")
+        with open(output_location + "Directory" + str(i) + ".txt", "w") as f:
+            logging.info("Walking...")
+            for dirName, subdirList, fileList in os.walk(directory):
+                logging.info('Directory: %s\n' % dirName)
+                f.write(dirName + "\n")
+                for fileName in fileList:
+                    logging.info('\t%s' % fileName)
+                    f.write("\t" + fileName + "\n")
+                f.write("\n")
 main()
 
